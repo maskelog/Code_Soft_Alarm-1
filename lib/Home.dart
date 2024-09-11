@@ -19,7 +19,7 @@ class ExampleAlarmHomeScreen extends StatefulWidget {
 
 class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
   late List<AlarmSettings> alarms;
-  List<bool> _alarmOnOff = [];
+  final List<bool> _alarmOnOff = [];
 
   static StreamSubscription<AlarmSettings>? subscription;
 
@@ -266,6 +266,7 @@ class Realtime extends StatefulWidget {
   const Realtime({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _RealtimeState createState() => _RealtimeState();
 }
 

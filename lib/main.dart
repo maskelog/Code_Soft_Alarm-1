@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:cod_soft_alarm/Home.dart';
-import 'package:flutter/material.dart';
 import 'package:alarm/alarm.dart';
+import 'package:cod_soft_alarm/home.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 Future<void> main() async {

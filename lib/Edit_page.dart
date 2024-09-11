@@ -50,7 +50,7 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
       volume = widget.alarmSettings!.volume;
       assetAudio = widget.alarmSettings!.assetAudioPath;
     }
-    int initialMinute = 30;
+    // int initialMinute = 30; // Remove this line since the variable is not being used.
     _minuteController =
         FixedExtentScrollController(initialItem: selectedDateTime.minute);
     _hourController =
@@ -540,15 +540,16 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
               SizedBox(
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text("Cancel", style: TextStyle(color: Colors.blue)
-                      //  Theme.of(context).textTheme.bodyLarge,
-                      ),
+                  child:
+                      const Text("Cancel", style: TextStyle(color: Colors.blue)
+                          //  Theme.of(context).textTheme.bodyLarge,
+                          ),
                 ),
               ),
               SizedBox(
                 child: ElevatedButton(
                   onPressed: saveAlarm,
-                  child: Text(
+                  child: const Text(
                     "Save", style: TextStyle(color: Colors.blue),
 
                     //  Theme.of(context).textTheme.bodyLarge,
