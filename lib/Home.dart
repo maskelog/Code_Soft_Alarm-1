@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:alarm/alarm.dart';
-import 'package:cod_soft_alarm/Edit_page.dart';
-import 'package:cod_soft_alarm/ring.dart';
+import 'package:code_soft_alarm/edit_page.dart';
+import 'package:code_soft_alarm/ring.dart';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ExampleAlarmHomeScreen extends StatefulWidget {
-  const ExampleAlarmHomeScreen({Key? key}) : super(key: key);
+  const ExampleAlarmHomeScreen({super.key});
 
   @override
   State<ExampleAlarmHomeScreen> createState() => _ExampleAlarmHomeScreenState();

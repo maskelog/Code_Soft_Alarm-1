@@ -2,12 +2,16 @@ import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 
-class ExampleAlarmRingScreen extends StatelessWidget {
+class ExampleAlarmRingScreen extends StatefulWidget {
   final AlarmSettings alarmSettings;
 
-  const ExampleAlarmRingScreen({Key? key, required this.alarmSettings})
-      : super(key: key);
+  const ExampleAlarmRingScreen({super.key, required this.alarmSettings});
 
+  @override
+  ExampleAlarmRingScreenState createState() => ExampleAlarmRingScreenState();
+}
+
+class ExampleAlarmRingScreenState extends State<ExampleAlarmRingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +20,7 @@ class ExampleAlarmRingScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              "You alarm is ringing...",
+              "Your alarm is ringing...",
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const RippleAnimation(
@@ -28,7 +32,6 @@ class ExampleAlarmRingScreen extends StatelessWidget {
               duration: Duration(milliseconds: 6 * 300),
               child: Text("🔔", style: TextStyle(fontSize: 50)),
             ),
-            // const Text("🔔", style: TextStyle(fontSize: 50)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -36,7 +39,7 @@ class ExampleAlarmRingScreen extends StatelessWidget {
                   onPressed: () {
                     final now = DateTime.now();
                     Alarm.set(
-                      alarmSettings: alarmSettings.copyWith(
+                      alarmSettings: widget.alarmSettings.copyWith(
                         dateTime: DateTime(
                           now.year,
                           now.month,
@@ -47,7 +50,10 @@ class ExampleAlarmRingScreen extends StatelessWidget {
                           0,
                         ).add(const Duration(minutes: 1)),
                       ),
-                    ).then((_) => Navigator.pop(context));
+                    ).then((_) {
+                      Alarm.stop(widget.alarmSettings.id);
+                      Navigator.pop(context);
+                    });
                   },
                   child: Text(
                     "Snooze",
@@ -56,8 +62,9 @@ class ExampleAlarmRingScreen extends StatelessWidget {
                 ),
                 RawMaterialButton(
                   onPressed: () {
-                    Alarm.stop(alarmSettings.id)
-                        .then((_) => Navigator.pop(context));
+                    Alarm.stop(widget.alarmSettings.id).then((_) {
+                      Navigator.pop(context);
+                    });
                   },
                   child: Text(
                     "Stop",
