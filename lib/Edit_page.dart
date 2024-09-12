@@ -6,8 +6,7 @@ import 'package:intl/intl.dart';
 class ExampleAlarmEditScreen extends StatefulWidget {
   final AlarmSettings? alarmSettings;
 
-  const ExampleAlarmEditScreen({Key? key, this.alarmSettings})
-      : super(key: key);
+  const ExampleAlarmEditScreen({super.key, this.alarmSettings});
 
   @override
   State<ExampleAlarmEditScreen> createState() => _ExampleAlarmEditScreenState();

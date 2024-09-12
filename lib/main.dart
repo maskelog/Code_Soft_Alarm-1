@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:alarm/alarm.dart';
-import 'package:cod_soft_alarm/home.dart';
+import 'package:code_soft_alarm/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

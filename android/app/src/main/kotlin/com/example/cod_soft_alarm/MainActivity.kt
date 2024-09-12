@@ -14,21 +14,22 @@ class MainActivity: FlutterActivity() {
         super.onCreate(savedInstanceState)
 
         // MethodChannel을 통해 Flutter와 네이티브(Android) 간 통신을 설정
-        MethodChannel(flutterEngine?.dartExecutor?.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
+        MethodChannel(flutterEngine!!.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
             when (call.method) {
                 "startForegroundService" -> {
-                    startForegroundService() // Foreground Service 시작
+                    startForegroundService()
                     result.success(null)
                 }
                 "stopForegroundService" -> {
-                    stopForegroundService() // Foreground Service 중지
+                    stopForegroundService()
                     result.success(null)
                 }
                 else -> {
                     result.notImplemented()
                 }
             }
-        }
+}
+
     }
 
     // Foreground Service 시작

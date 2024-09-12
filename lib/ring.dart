@@ -5,8 +5,7 @@ import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 class ExampleAlarmRingScreen extends StatelessWidget {
   final AlarmSettings alarmSettings;
 
-  const ExampleAlarmRingScreen({Key? key, required this.alarmSettings})
-      : super(key: key);
+  const ExampleAlarmRingScreen({super.key, required this.alarmSettings});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +46,7 @@ class ExampleAlarmRingScreen extends StatelessWidget {
                           0,
                         ).add(const Duration(minutes: 1)),
                       ),
-                    ).then((_) => Navigator.pop(context));
+                    ).then((_) => Navigator.pop(context)); // 스누즈 1분 후 다시 알람
                   },
                   child: Text(
                     "Snooze",
