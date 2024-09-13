@@ -38,14 +38,31 @@ class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
   void loadAlarms() {
     setState(() {
       alarms = Alarm.getAlarms();
+      _alarmOnOff.clear();
+      DateTime now = DateTime.now();
       for (int i = 0; i < alarms.length; i++) {
         if (alarms[i].dateTime.year == 2050) {
           _alarmOnOff.add(false);
         } else {
+          if (alarms[i].dateTime.isBefore(now)) {
+            // If the alarm time is in the past, update it to the next occurrence
+            DateTime newAlarmTime = DateTime(
+              now.year,
+              now.month,
+              now.day,
+              alarms[i].dateTime.hour,
+              alarms[i].dateTime.minute,
+            );
+            if (newAlarmTime.isBefore(now)) {
+              newAlarmTime = newAlarmTime.add(const Duration(days: 1));
+            }
+            Alarm.set(
+                alarmSettings: alarms[i].copyWith(dateTime: newAlarmTime));
+          }
           _alarmOnOff.add(true);
         }
       }
-      alarms.sort((a, b) => a.dateTime.isBefore(b.dateTime) ? 0 : 1);
+      alarms.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     });
   }
 
@@ -235,14 +252,29 @@ class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
                   value: _alarmOnOff[index],
                   onChanged: (bool value) {
                     if (value == false) {
+                      // 알람을 비활성화할 때
                       Alarm.set(
-                          alarmSettings: alarm.copyWith(
-                              dateTime: alarm.dateTime.copyWith(year: 2050)));
+                        alarmSettings: alarm.copyWith(
+                            dateTime:
+                                alarm.dateTime.copyWith(year: 2050) // 알람 해제
+                            ),
+                      );
                     } else {
+                      // 알람을 다시 활성화할 때
+                      DateTime now = DateTime.now();
+                      DateTime nextAlarmTime = alarm.dateTime;
+
+                      // 현재 시간보다 이전 시간인 경우 다음날로 설정
+                      if (nextAlarmTime.isBefore(now)) {
+                        nextAlarmTime =
+                            nextAlarmTime.add(const Duration(days: 1));
+                      }
+
                       Alarm.set(
-                          alarmSettings: alarm.copyWith(
-                              dateTime: alarm.dateTime
-                                  .copyWith(year: DateTime.now().year)));
+                        alarmSettings: alarm.copyWith(
+                          dateTime: nextAlarmTime, // 다음 울릴 시간을 설정
+                        ),
+                      );
                     }
                     setState(() {
                       _alarmOnOff[index] = value;
