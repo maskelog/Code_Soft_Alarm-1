@@ -4,9 +4,7 @@ import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 
 class ExampleAlarmRingScreen extends StatefulWidget {
   final AlarmSettings alarmSettings;
-
   const ExampleAlarmRingScreen({super.key, required this.alarmSettings});
-
   @override
   ExampleAlarmRingScreenState createState() => ExampleAlarmRingScreenState();
 }
@@ -63,6 +61,12 @@ class ExampleAlarmRingScreenState extends State<ExampleAlarmRingScreen> {
                 RawMaterialButton(
                   onPressed: () {
                     Alarm.stop(widget.alarmSettings.id).then((_) {
+                      // Update the alarm to be inactive instead of removing it
+                      Alarm.set(
+                          alarmSettings: widget.alarmSettings.copyWith(
+                        dateTime: DateTime(
+                            2050), // Set to a far future date to indicate inactivity
+                      ));
                       Navigator.pop(context);
                     });
                   },
